@@ -1,4 +1,4 @@
-# kubernetes/postgres.yaml
+--- 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,3 +36,16 @@ spec:
         - name: postgresdb
           persistentVolumeClaim:
             claimName: postgres-storage-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: backstage
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

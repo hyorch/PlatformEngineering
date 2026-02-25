@@ -1,30 +1,14 @@
-# Backstage K8S
+# Backstage Standalone
 
-<https://backstage.io/docs/deployment/k8s>
-
-## Create Namespace and Secret
+## Standalone Install
 
 ```bash
-kubectl create namespace backstage
-kubectl create secret generic postgresql-secret \
-  --from-literal=POSTGRES_PASSWORD=postgresspw \
-  --from-literal=POSTGRES_USER=postgres \
-  -n backstage  
-```
+npm install -g corepack
+sudo npm install -g corepack
+yarn init -2
+yarn set version stable
+yarn install
 
-## Create PVC
-
-```bash
-kubectl apply -f postgresql-pvc.yaml    
-kubectl apply -f postgresql.yaml  
-```
-
-## Deploy Backstage
-
-```bash
-kubectl apply -f backstage.yaml
-```
-
-```bash
-kubectl -n backstage port-forward svc/backstage 20001:20001
+npx @backstage/create-app@latest
+cd demo-bs-app && yarn start
 ```
