@@ -1,5 +1,9 @@
 # Backstage Standalone
 
+## Install on a Docker Container
+
+See */docker* folder
+
 ## Standalone Install
 
 ```bash
