@@ -41,8 +41,3 @@ kubectl describe pods
 kubectl delete deployment my-nginx
 ```
 
-## Browse Istio Dashboard
-
-```bash
-istioctl dashboard envoy deploy/productpage-v1.default
-```
