@@ -21,6 +21,14 @@ Access no Ingress
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
+Access K3s Traefik Ingress
+
+```bash
+k apply -f ingress.yaml
+
+```
+
+
 Initial Password
 
 ```bash
