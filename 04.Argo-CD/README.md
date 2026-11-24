@@ -2,6 +2,7 @@
 
 https://argo-cd.readthedocs.io/en/stable/getting_started/
 
+## Deploy
 ```bash
 kubectl create namespace argocd
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -15,23 +16,28 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64
 ```
 
-Access no Ingress
+## Access no Ingress
 
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-Access K3s Traefik Ingress
+## Access K3s Traefik Ingress
 
 ```bash
 k apply -f ingress.yaml
-
 ```
 
 
-Initial Password
+## Get Initial Password
 
 ```bash
 kubectl -n argocd get secrets argocd-initial-admin-secret -o yaml
 echo "xxxdfjlskdfñ" | base64 -d
+```
+
+## Create App of Apps
+
+```bash
+kubectl apply -f apps.yaml
 ```
