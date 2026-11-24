@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: multi-source-helm-app
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com
+      revision: HEAD
+      files:
+      - path: "apps/*/config.yaml"
+  template:
+    metadata:
+      name: 'my-app-{{.env}}'
+    spec:
+      project: default
+      # Notice 'sources' (plural) instead of 'source' (singular)
+      sources:
+      # Source 1: The repository containing the Helm chart
+      - repoURL: https://github.com
+        targetRevision: v1.2.0
+        path: charts/my-app
+        helm:
+          valueFiles:
+          # References the 'ref: values' repo below + path to the file
+          - $values/{{.path.path}}/values.yaml
+
+      # Source 2: The repository containing your values.yaml file
+      - repoURL: https://github.com
+        targetRevision: HEAD
+        ref: values
+
+      destination:
+        server: '{{.cluster}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true

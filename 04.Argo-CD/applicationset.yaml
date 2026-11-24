@@ -1,4 +1,4 @@
-# ApplicationSet
+# ApplicationSet Directories Generator
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -6,6 +6,8 @@ metadata:
   namespace: argocd
 spec:
   generators:
+    goTemplate: true
+    goTemplateOptions: ["missingkey=error"]
     - git:
         repoURL: https://github.com/hyorch/PlatformEngineering.git
         revision: HEAD
