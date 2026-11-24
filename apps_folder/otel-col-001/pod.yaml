@@ -13,9 +13,6 @@ spec:
       env:
         - name: OTEL_RESOURCE_ATTRIBUTES
           value: service.name=otel-col-contrib
-
-  deploy:
-    replicas: 1
   
   #set cpu limits
   resources:
