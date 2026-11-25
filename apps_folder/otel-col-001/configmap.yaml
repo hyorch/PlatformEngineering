@@ -69,7 +69,7 @@ data:
     exporters:
       prometheus_remote_write/prometheus:
         http:
-          endpoint: http://kube-prometheus-stask.kube-prometheus-stask-kube-prometheus:9090/api/v1/write
+          endpoint: http://kube-prometheus-stask-kube-prometheus.kube-prometheus-stask:9090/api/v1/write
         resource_to_telemetry_conversion:
           enabled: true # Convert resource attributes to metric labels      
       
