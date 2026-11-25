@@ -17,7 +17,7 @@ spec:
       #mount configmap al config file
       volumeMounts:
         - name: otel-configmap
-          mountPath: /etc/otelcol-contrib/config.yaml
+          mountPath: /etc/otelcol-contrib
           subPath: config.yaml          
 
   
