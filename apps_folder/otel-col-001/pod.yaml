@@ -18,9 +18,7 @@ spec:
       volumeMounts:
         - name: otel-configmap
           mountPath: /etc/otelcol-contrib/config.yaml
-          subPath: config.yaml
-          readOnly: true
-
+          subPath: config.yaml          
 
   
       #set cpu limits
