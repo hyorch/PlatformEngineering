@@ -24,7 +24,7 @@ data:
         driver: oracle
         datasource: "oracle://monitor:monitor2026@oracledb-oracle-db23c-free.oracle:1521/FREEPDB1"
         queries:
-          - sql: "select sum(amount) as DINERITO, count(*) as MOVIMIENTOS, NAME from table_money group by name;"
+          - sql: "select sum(amount) as DINERITO, count(*) as MOVIMIENTOS, NAME from system.table_money group by name;"
             metrics:
               - metric_name: table_money.names
                 value_column: DINERITO # en mayúsculas porque el resultado de la query lo pone en mayúsculas
