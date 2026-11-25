@@ -84,7 +84,7 @@ data:
 
       pipelines:
         metrics:
-          receivers: [otlp, sql_query/gauge,oracledb]
+          receivers: [otlp, sql_query/gauge]
           processors: [resource_detection, batch]
           exporters: [prometheus_remote_write/prometheus, debug]
           
