@@ -13,6 +13,13 @@ spec:
       env:
         - name: OTEL_RESOURCE_ATTRIBUTES
           value: service.name=otel-col-contrib
+
+      #mount configmap al config file
+      volumeMounts:
+        - name: otel-configmap
+          mountPath: /etc/otel-collector-config.yaml
+          readOnly: true
+
   
   #set cpu limits
   resources:

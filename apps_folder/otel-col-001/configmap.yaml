@@ -1,0 +1,91 @@
+# config map for otel-collector
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-configmap
+  namespace: otel-col-001
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+      # Métricas del motor Oracle
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/oracledbreceiver
+      oracledb:
+        datasource: "oracle://system:adminpassword@oracle.oracledb-oracle-db23c-free:1521/FREEPDB1"
+
+      # sqlqueryreceiver gauge example
+      sql_query/gauge:
+        driver: oracle
+        datasource: "oracle://monitor:monitor2026@oracle.oracledb-oracle-db23c-free::1521/FREEPDB1"
+        queries:
+          - sql: "select sum(amount) as DINERITO, count(*) as MOVIMIENTOS, NAME from table_money group by name;"
+            metrics:
+              - metric_name: table_money.names
+                value_column: DINERITO # en mayúsculas porque el resultado de la query lo pone en mayúsculas
+                attribute_columns: [NAME]
+                static_attributes:
+                  dbinstance: FREEPDB1
+                data_type: gauge
+                unit: euros
+                description: "Total dinerito by name"  
+              - metric_name: table_money.movimientos
+                value_column: MOVIMIENTOS # en mayúsculas porque el resultado de la query lo pone en mayúsculas
+                attribute_columns: [NAME]
+                static_attributes:
+                  dbinstance: FREEPDB1
+                data_type: gauge
+                description: "Total movimientos de dinero"       
+        telemetry:
+          logs: # mostrar la query que se ejecuta en los logs       
+            query: true
+      
+    processors:
+      batch:
+        # https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/batchprocessor
+      resource_detection:
+        # Enriches telemetry data with resource information from the host
+        # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourcedetectionprocessor
+        detectors: ["env","docker","system"]
+        override: false
+        docker:
+          resource_attributes:
+            host.name:
+              enabled: true
+            os.type:
+              enabled: true
+            container.name:
+              enabled: true
+        #     container.image.name:
+        #       enabled: true
+        
+
+    # send metrics to prometheus
+    exporters:
+      prometheus_remote_write/prometheus:
+        http:
+          endpoint: http://prometheus:9090/api/v1/write
+        resource_to_telemetry_conversion:
+          enabled: true # Convert resource attributes to metric labels      
+      
+      debug:
+        verbosity: detailed
+
+    service:
+      telemetry:
+        logs:
+          level: debug
+          encoding: console
+
+      pipelines:
+        metrics:
+          receivers: [otlp, sql_query/gauge,oracledb]
+          processors: [resource_detection, batch]
+          exporters: [prometheus_remote_write/prometheus, debug]
+          
+
