@@ -20,13 +20,18 @@ spec:
           mountPath: /etc/otel-collector-config.yaml
           readOnly: true
 
-  
-  #set cpu limits
-  resources:
-   limits:
-     cpu: "200m"
-     memory: "256Mi"
-   requests:
-     cpu: "100m"
-     memory: "128Mi"
 
+  
+      #set cpu limits
+      resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+
+  volumes:
+    - name: otel-configmap
+      configMap:
+        name: otel-configmap
