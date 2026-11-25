@@ -17,8 +17,8 @@ spec:
       #mount configmap al config file
       volumeMounts:
         - name: otel-configmap
-          mountPath: /etc/otel-collecto-contrib/otel-collector-config.yaml
-          subPath: otel-collector-config.yaml
+          mountPath: /etc/otelcol-contrib/config.yaml
+          subPath: config.yaml
           readOnly: true
 
 
