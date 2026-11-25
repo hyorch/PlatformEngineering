@@ -17,12 +17,12 @@ data:
       # Métricas del motor Oracle
       # https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/oracledbreceiver
       oracledb:
-        datasource: "oracle://system:adminpassword@oracle.oracledb-oracle-db23c-free:1521/FREEPDB1"
+        datasource: "oracle://system:adminpassword@oracledb-oracle-db23c-free.oracle:1521/FREEPDB1"
 
       # sqlqueryreceiver gauge example
       sql_query/gauge:
         driver: oracle
-        datasource: "oracle://monitor:monitor2026@oracle.oracledb-oracle-db23c-free::1521/FREEPDB1"
+        datasource: "oracle://monitor:monitor2026@oracledb-oracle-db23c-free.oracle:1521/FREEPDB1"
         queries:
           - sql: "select sum(amount) as DINERITO, count(*) as MOVIMIENTOS, NAME from table_money group by name;"
             metrics:
