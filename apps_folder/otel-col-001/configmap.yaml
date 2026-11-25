@@ -5,7 +5,7 @@ metadata:
   name: otel-configmap
   namespace: otel-col-001
 data:
-  otel-collector-config.yaml: |
+  config.yaml: |
     receivers:
       otlp:
         protocols:
