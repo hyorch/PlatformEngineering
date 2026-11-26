@@ -55,11 +55,10 @@ data:
         #       enabled: true
         
     extensions:
-      basicauth/client:
+      basicauth/otel:
         client_auth:
           username: otel
           password: PWfuerte26..
-
 
     # send metrics to prometheus
     exporters:
@@ -79,7 +78,7 @@ data:
             insecure: false
             insecure_skip_verify: true
           auth:
-            authenticator: basicauth/client
+            authenticator: basicauth/otel
         # Logs configuration
         logs_index: "otel-logs-otel002-dev"
         logs_index_fallback: "default"
@@ -95,7 +94,14 @@ data:
         metrics:
           receivers: [sql_query/gauge]
           processors: [resource_detection, batch]
-          exporters: [prometheus_remote_write/prometheus, debug,opensearch]
+          exporters: [prometheus_remote_write/prometheus, debug]
+          extensions: [basicauth/otel]
+        
+        logs:
+          receivers: [sql_query/gauge]
+          processors: [resource_detection, batch]
+          exporters: [debug,opensearch]
+          extensions: [basicauth/otel]
 
     
 
