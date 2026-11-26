@@ -92,8 +92,8 @@ data:
           exporters: [prometheus_remote_write/prometheus, debug,opensearch]
 
     extensions:
-    basicauth/otel:
-      client_auth:
-        username: otel
-        password: PWfuerte26..
+      basicauth/otel:
+        client_auth:
+          username: otel
+          password: PWfuerte26..
 
