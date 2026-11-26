@@ -1,0 +1,36 @@
+#OTEL Collector Contrib Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: otel-col-contrib
+  namespace: otel-col-002
+spec:
+  containers:
+    - name: otel-col-contrib
+      image: otel/opentelemetry-collector-contrib
+      ports:
+        - containerPort: 4317
+      env:
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name=otel-col-contrib
+
+      #mount configmap al config file
+      volumeMounts:
+        - name: otel-configmap
+          mountPath: /etc/otelcol-contrib/config.yaml
+          subPath: config.yaml          
+
+  
+      #set cpu limits
+      resources:
+        limits:
+          cpu: "200m"
+          memory: "256Mi"
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+
+  volumes:
+    - name: otel-configmap
+      configMap:
+        name: otel-configmap
