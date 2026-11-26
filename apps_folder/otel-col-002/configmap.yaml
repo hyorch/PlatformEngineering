@@ -57,12 +57,6 @@ data:
         #     container.image.name:
         #       enabled: true
         
-    extensions:
-      basicauth/otel:
-        client_auth:
-          username: otel
-          password: PWfuerte26..
-
     # send metrics to prometheus
     exporters:
       prometheus_remote_write/prometheus:
@@ -97,15 +91,21 @@ data:
           encoding: console
 
       pipelines:
-        metrics:
-          receivers: [sql_query/gauge]
-          processors: [resource_detection, batch]
-          exporters: [prometheus_remote_write/prometheus, debug]          
+        # metrics:
+        #   receivers: [sql_query/gauge]
+        #   processors: [resource_detection, batch]
+        #   exporters: [prometheus_remote_write/prometheus, debug]          
         
         logs:
           receivers: [sql_query/gauge]
           processors: [resource_detection, batch]
-          exporters: [debug,opensearch]          
+          exporters: [debug,opensearch]    
+
+    extensions:
+      basicauth/otel:
+        client_auth:
+          username: otel
+          password: PWfuerte26..      
 
     
 
