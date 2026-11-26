@@ -68,7 +68,7 @@ data:
 
       opensearch:
         http:
-          endpoint: https://opensearch-stask-opensearch-stask.opensearch-stask.svc.cluster.local:9200
+          endpoint: https://opensearch-cluster-master.opensearch:9200
           tls:
             insecure: false
             insecure_skip_verify: true
