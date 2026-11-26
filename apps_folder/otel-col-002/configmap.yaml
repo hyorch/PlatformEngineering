@@ -73,7 +73,7 @@ data:
             insecure: false
             insecure_skip_verify: true
         # Logs configuration
-        logs_index: "otel-logs-%{service.name}-%{env}"
+        logs_index: "otel-logs-otel002-dev"
         logs_index_fallback: "default"
         logs_index_time_format: "yyyy.MM.dd"
 
