@@ -72,6 +72,8 @@ data:
           tls:
             insecure: false
             insecure_skip_verify: true
+          auth:
+            authenticator: basicauth/otel
         # Logs configuration
         logs_index: "otel-logs-otel002-dev"
         logs_index_fallback: "default"
@@ -88,5 +90,10 @@ data:
           receivers: [sql_query/gauge]
           processors: [resource_detection, batch]
           exporters: [prometheus_remote_write/prometheus, debug,opensearch]
-          
+
+    extensions:
+    basicauth/otel:
+      client_auth:
+        username: otel
+        password: PWfuerte26..
 
