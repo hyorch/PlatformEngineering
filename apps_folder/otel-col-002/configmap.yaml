@@ -30,7 +30,10 @@ data:
                 static_attributes:
                   dbinstance: FREEPDB1
                 data_type: gauge
-                description: "Total movimientos de dinero"       
+                description: "Total movimientos de dinero"
+            logs:
+              - body_columnn: PASTA
+                attribute_columns: ["NAME"]     
         telemetry:
           logs: # mostrar la query que se ejecuta en los logs       
             query: true
