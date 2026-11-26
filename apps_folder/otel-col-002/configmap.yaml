@@ -32,7 +32,7 @@ data:
                 data_type: gauge
                 description: "Total movimientos de dinero"
             logs:
-              - body_columnn: PASTA
+              - body_column: "PASTA"
                 attribute_columns: ["NAME"]     
         telemetry:
           logs: # mostrar la query que se ejecuta en los logs       
